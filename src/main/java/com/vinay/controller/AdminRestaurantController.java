@@ -1,5 +1,6 @@
 package com.vinay.controller;
 
+import com.vinay.response.MessageResponse;
 import com.vinay.service.RestaurantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,12 @@ import com.vinay.service.UserService;
 public class AdminRestaurantController {
 
     @Autowired
-    private RestaurantService restaurantService=new RestaurantServiceImpl();
+    private final RestaurantService restaurantService = new RestaurantServiceImpl();
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/createRestaurant")
+    @PostMapping()
     public ResponseEntity<Restaurant> createRestaurant(@RequestBody CreateRestaurantRequest request,
             @RequestHeader("Authorization") String jwt) throws Exception {
         User user = userService.findUserByJwtToken(jwt);
@@ -33,15 +34,35 @@ public class AdminRestaurantController {
     @PutMapping("/{id}")
     public ResponseEntity<Restaurant> updateRestaurant(@RequestBody CreateRestaurantRequest request,
             @RequestHeader("Authorization") String jwt, @PathVariable Long id) throws Exception {
-        User user = userService.findUserByJwtToken(jwt);
         Restaurant restaurant = restaurantService.updateRestaurant(id, request);
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Restaurant> updateRestaurant(@RequestBody CreateRestaurantRequest request,
-                                                       @RequestHeader("Authorization") String jwt, @PathVariable Long id) throws Exception {
-        User user = userService.findUserByJwtToken(jwt);
-        Restaurant restaurant = restaurantService.updateRestaurant(id, request);
+    public ResponseEntity<MessageResponse> deleteRestaurant(@RequestHeader("Authorization") String jwt,
+            @PathVariable Long id) throws Exception {
+        restaurantService.deleteRestaurant(id);
+        MessageResponse response = new MessageResponse();
+        response.setMessage("restaurant deleted successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Restaurant> updateRestaurantStatus(@RequestHeader("Authorization") String jwt,
+            @PathVariable Long id) throws Exception {
+        Restaurant restaurant = restaurantService.updateRestaurantStatus(id);
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<Restaurant> findRestaurantByUserId(@RequestHeader("Authorization") String jwt)
+            throws Exception {
+        User user = userService.findUserByJwtToken(jwt);
+        Restaurant restaurant = restaurantService.findRestaurantById(user.getId());
+        return new ResponseEntity<>(restaurant, HttpStatus.OK);
+    }
+
+    public RestaurantService getRestaurantService() {
+        return restaurantService;
     }
 }

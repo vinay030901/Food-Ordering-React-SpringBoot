@@ -1,4 +1,4 @@
-package response;
+package com.vinay.response;
 
 import com.vinay.models.USER_ROLE;
 
