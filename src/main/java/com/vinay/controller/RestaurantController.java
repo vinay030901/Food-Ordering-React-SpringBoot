@@ -2,7 +2,6 @@ package com.vinay.controller;
 
 import com.vinay.models.Restaurant;
 import com.vinay.models.User;
-import com.vinay.request.CreateRestaurantRequest;
 import com.vinay.service.RestaurantService;
 import com.vinay.service.RestaurantServiceImpl;
 import com.vinay.service.UserService;
@@ -25,6 +24,7 @@ public class RestaurantController {
 
     @Autowired
     private UserService userService;
+
 
     @GetMapping("/search")
     public ResponseEntity<List<Restaurant>> searchRestaurant(

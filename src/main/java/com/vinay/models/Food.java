@@ -27,7 +27,7 @@ public class Food {
 
     @Column(length = 1000)
     @ElementCollection
-    private List<String> image;
+    private List<String> images;
 
     private boolean available;
 

@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- *
  * @author PC
  */
 @Configuration
@@ -27,19 +26,19 @@ import java.util.Collections;
 public class AppConfig {
 
     @Bean
-     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-     http.sessionManagement(management ->
-     management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-     .authorizeHttpRequests(
-     Authorize -> Authorize
-     .requestMatchers("/api/admin/**").hasAnyRole("RESTAURANT_OWNER", "ADMIN")
-     .requestMatchers("/api/**").authenticated()
-     .anyRequest().permitAll())
-     .addFilterBefore(new JwtTokenValidator(),
-     BasicAuthenticationFilter.class).csrf(AbstractHttpConfigurer::disable)
-     .cors(cors -> cors.configurationSource(corsConfigurationSource()));
-     return http.build();
-     }
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.sessionManagement(management ->
+                        management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(
+                        Authorize -> Authorize
+                                .requestMatchers("/api/admin/**").hasAnyRole("RESTAURANT_OWNER", "ADMIN")
+                                .requestMatchers("/api/**").authenticated()
+                                .anyRequest().permitAll())
+                .addFilterBefore(new JwtTokenValidator(),
+                        BasicAuthenticationFilter.class).csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()));
+        return http.build();
+    }
 //    @Bean
 //    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //        http.csrf(AbstractHttpConfigurer::disable)
@@ -52,23 +51,23 @@ public class AppConfig {
 //    }
 
 
+    private CorsConfigurationSource corsConfigurationSource() {
+        return new CorsConfigurationSource() {
+            @Override
+            @Nullable
+            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 
-     private CorsConfigurationSource corsConfigurationSource() {
-     return new CorsConfigurationSource() {
-     @Override
-     @Nullable
-     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-     CorsConfiguration cfg = new CorsConfiguration();
-     cfg.setAllowedOrigins(Arrays.asList("https://vinay-food.vercel.app/",
-     "http://localhost:3000"));
-     cfg.setAllowedMethods(Collections.singletonList("*"));
-     cfg.setAllowedHeaders(Collections.singletonList("*"));
-     cfg.setExposedHeaders(Arrays.asList("Authorization"));
-     cfg.setMaxAge(3600L);
-     return cfg;
-     }
-     };
-     }
+                CorsConfiguration cfg = new CorsConfiguration();
+                cfg.setAllowedOrigins(Arrays.asList("https://vinay-food.vercel.app/",
+                        "http://localhost:3000"));
+                cfg.setAllowedMethods(Collections.singletonList("*"));
+                cfg.setAllowedHeaders(Collections.singletonList("*"));
+                cfg.setExposedHeaders(Arrays.asList("Authorization"));
+                cfg.setMaxAge(3600L);
+                return cfg;
+            }
+        };
+    }
 
     @Bean
     PasswordEncoder passwordEncoder() {
