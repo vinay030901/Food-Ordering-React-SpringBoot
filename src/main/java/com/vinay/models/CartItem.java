@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-class CartItem {
+public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
