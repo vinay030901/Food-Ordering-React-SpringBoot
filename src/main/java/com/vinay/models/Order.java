@@ -38,11 +38,11 @@ public class Order {
     private Date createdAt;
 
     @ManyToOne
-    private Address address;
+    private Address deliveryAddress;
 
     @OneToMany
     private List<OrderItem> items;
 
     private int totalItems;
-    private int totalPrice;
+    private Long totalPrice;
 }
