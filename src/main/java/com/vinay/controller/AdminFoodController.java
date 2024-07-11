@@ -6,6 +6,7 @@ import com.vinay.models.User;
 import com.vinay.request.CreateFoodRequest;
 import com.vinay.response.MessageResponse;
 import com.vinay.service.FoodService;
+import com.vinay.service.FoodServiceImpl;
 import com.vinay.service.RestaurantService;
 import com.vinay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class AdminFoodController {
 
     @Autowired
-    private FoodService foodService;
+    private FoodService foodService=new FoodServiceImpl();
 
     @Autowired
     private UserService userService;

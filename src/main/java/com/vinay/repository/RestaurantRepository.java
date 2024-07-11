@@ -11,7 +11,7 @@ import com.vinay.models.Restaurant;
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
-    @Query("Select r from Restaurant WHERE lower(r.name) LIKE lower(concat('%',:query,'%'))"
+    @Query("Select r from Restaurant r WHERE lower(r.name) LIKE lower(concat('%',:query,'%'))"
             + "OR lower(r.cuisineType) LIKE lower(concat('%',:query,'%'))")
     List<Restaurant> findBySearchQuery(String query);
 

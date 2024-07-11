@@ -59,7 +59,7 @@ public class AppConfig {
 
                 CorsConfiguration cfg = new CorsConfiguration();
                 cfg.setAllowedOrigins(Arrays.asList("https://vinay-food.vercel.app/",
-                        "http://localhost:3000"));
+                        "http://localhost:5173","http://localhost:3000"));
                 cfg.setAllowedMethods(Collections.singletonList("*"));
                 cfg.setAllowedHeaders(Collections.singletonList("*"));
                 cfg.setExposedHeaders(Arrays.asList("Authorization"));

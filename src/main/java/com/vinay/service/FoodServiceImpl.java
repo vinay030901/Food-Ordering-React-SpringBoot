@@ -6,10 +6,12 @@ import com.vinay.models.Restaurant;
 import com.vinay.repository.FoodRepository;
 import com.vinay.request.CreateFoodRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class FoodServiceImpl implements FoodService{
 
     @Autowired
@@ -41,7 +43,7 @@ public class FoodServiceImpl implements FoodService{
 
     @Override
     public List<Food> getRestaurantFood(Long restaurantId, boolean isVegetarian, boolean isNonveg, boolean isSeasonal, String foodCategory) {
-        List<Food> foods=foodRepository.findbyRestaurantId(restaurantId);
+        List<Food> foods=foodRepository.findByRestaurantId(restaurantId);
         if(isVegetarian){
             foods.removeIf(food -> !food.isVegetarian());
         }
