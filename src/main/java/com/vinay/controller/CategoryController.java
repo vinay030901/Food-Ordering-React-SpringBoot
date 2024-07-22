@@ -27,10 +27,10 @@ public class CategoryController {
         Category newCategory = categoryService.createCategory(category.getName(),user.getId());
         return new ResponseEntity<>(newCategory,HttpStatus.OK);
     }
-    @GetMapping("/category/restaurant")
-    public ResponseEntity<List<Category>> getRestaurantCategory(@RequestBody Category category, @RequestHeader("Authorization") String jwt) throws Exception{
+    @GetMapping("/category/restaurant/{id}")
+    public ResponseEntity<List<Category>> getRestaurantCategory(@PathVariable Long id, @RequestHeader("Authorization") String jwt) throws Exception{
         User user=userService.findUserByJwtToken(jwt);
-        List<Category> categories = categoryService.findCategoryByRestaurantId(user.getId());
+        List<Category> categories = categoryService.findCategoryByRestaurantId(id);
         return new ResponseEntity<>(categories,HttpStatus.OK);
     }
 }

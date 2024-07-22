@@ -112,7 +112,8 @@ public class RestaurantServiceImpl implements RestaurantService {
         dto.setId(restaurantId);
 
         boolean isFavorited=false;
-        List<RestaurantDto> favorites = user.getFavourites();
+
+        List<RestaurantDto> favorites = user.getFavorites();
         for(RestaurantDto fav : favorites) {
             if (fav.getId() == restaurantId) {
                 isFavorited = true;

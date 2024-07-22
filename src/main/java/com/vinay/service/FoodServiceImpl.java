@@ -8,6 +8,7 @@ import com.vinay.request.CreateFoodRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +25,11 @@ public class FoodServiceImpl implements FoodService{
         food.setDescription(req.getDescription());
         food.setImages(req.getImages());
         food.setName(req.getName());
-        food.setPrice(req.getPrice());
+        food.setPrice(Long.valueOf(req.getPrice()));
         food.setIngredients(req.getIngredients());
         food.setSeasonal(req.isSeasonal());
         food.setVegetarian(req.isVegetarian());
+        food.setCreationDate(new Date());
         Food savedFood=foodRepository.save(food);
         restaurant.getFoods().add(savedFood);
         return savedFood;

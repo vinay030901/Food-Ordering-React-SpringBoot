@@ -93,6 +93,7 @@ public class AuthController {
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
 
+
     private Authentication authenticate(String username, String password) {
         UserDetails userDetails = customerUserDetailsService.loadUserByUsername(username);
         if (userDetails == null) {

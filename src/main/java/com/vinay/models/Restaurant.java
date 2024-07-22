@@ -36,6 +36,7 @@ public class Restaurant implements Serializable {
 
     private String openingHours;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true) // by using mapped by, we are telling string to not make any separate table
     private List<Order> orders = new ArrayList<>();
 

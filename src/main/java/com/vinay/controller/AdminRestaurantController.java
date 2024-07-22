@@ -14,7 +14,7 @@ import com.vinay.service.RestaurantService;
 import com.vinay.service.UserService;
 
 @RestController
-@RequestMapping("/api/admin/restaurant")
+@RequestMapping("/api/admin/restaurants")
 public class AdminRestaurantController {
 
     @Autowired
@@ -58,7 +58,7 @@ public class AdminRestaurantController {
     public ResponseEntity<Restaurant> findRestaurantByUserId(@RequestHeader("Authorization") String jwt)
             throws Exception {
         User user = userService.findUserByJwtToken(jwt);
-        Restaurant restaurant = restaurantService.findRestaurantById(user.getId());
+        Restaurant restaurant = restaurantService.getRestaurantByUserId(user.getId());
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
 
